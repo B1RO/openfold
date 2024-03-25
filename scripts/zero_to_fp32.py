@@ -18,6 +18,7 @@ import re
 # while this script doesn't use deepspeed to recover data, since the checkpoints are pickled with
 # DeepSpeed data structures it has to be available in the current python environment.
 import deepspeed
+
 from deepspeed.utils import logger
 
 debug = 0
@@ -463,3 +464,4 @@ if __name__ == "__main__":
     debug = args.debug
 
     convert_zero_checkpoint_to_fp32_state_dict(args.checkpoint_dir, args.output_file)
+

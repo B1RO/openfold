@@ -195,7 +195,7 @@ class LayerNorm(nn.Module):
         d = x.dtype
         deepspeed_is_initialized = (
             deepspeed_is_installed and 
-            deepspeed.utils.is_initialized()
+            deepspeed.comm.comm.is_initialized()
         )
         if(d is torch.bfloat16 and not deepspeed_is_initialized):
             with torch.cuda.amp.autocast(enabled=False):
@@ -227,7 +227,7 @@ def softmax_no_cast(t: torch.Tensor, dim: int = -1) -> torch.Tensor:
     d = t.dtype
     deepspeed_is_initialized = (
         deepspeed_is_installed and 
-        deepspeed.utils.is_initialized()
+        deepspeed.comm.comm.is_initialized()
     )
     if(d is torch.bfloat16 and not deepspeed_is_initialized):
         with torch.cuda.amp.autocast(enabled=False):
@@ -720,3 +720,4 @@ def _flash_attn(q, k, v, kv_mask):
     out = out.to(dtype=dtype)
 
     return out
+
